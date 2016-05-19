@@ -1,0 +1,65 @@
+//Maxine Hood and Sherry Xu
+//Zombie Trails Gui
+// ZTCardLayout.java
+
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+
+public class ZTCardLayout extends JPanel {
+  private JPanel cards; 
+  private ZTGame game;
+  
+  private final String[] NAMES ={"Start Game", "Play Game", "Lose Game", "Win Game"};
+  
+  public ZTCardLayout (ZTGame game) {
+    this.game = game;
+    
+    //Create the "cards".
+    JPanel startPanel = new StartPanel(game, this);
+    
+    //JPanel playPanel = new PlayPanel(game, this);
+    
+    //JPanel diePanel = new DiePanel(game, this);
+    
+    //JPanel winPanel = new WinPanel(game, this);
+    
+    
+    cards = new JPanel(new CardLayout());
+    cards.add(startPanel, NAMES[0]);
+    //cards.add(playPanel, NAMES[1]);
+    //cards.add(diePanel, NAMES[2]);
+    //cards.add(winPanel, NAMES[3]);
+    
+    cards.setBackground(new Color(204,229,255));
+   
+    add(cards);
+  }
+  
+  public void itemStateChanged(String event) {
+    CardLayout cl = (CardLayout)(cards.getLayout());
+    cl.show(cards, event);
+}
+  
+  public void setUpGame() {
+    JPanel playPanel = new PlayPanel(game, this);
+    cards.add(playPanel, NAMES[1]);
+    CardLayout cl = (CardLayout)(cards.getLayout());
+    cl.show(cards, NAMES[1]);
+  }
+  
+  public void endGame(boolean winLose) {
+    CardLayout cl = (CardLayout)(cards.getLayout());
+    
+    if (winLose) {
+      JPanel winPanel = new WinPanel(game, this);
+      cards.add(winPanel, NAMES[3]);
+      cl.show(cards, NAMES[3]);
+    } else {
+      JPanel diePanel = new DiePanel(game, this);
+      cards.add(diePanel, NAMES[2]);
+      cl.show(cards, NAMES[2]);
+    }
+  }
+  
+}

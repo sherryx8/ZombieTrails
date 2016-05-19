@@ -1,0 +1,18 @@
+Labor Plan
+
+Maxine:
+GUI/game interaction
+Game driver related to GUI
+Comments
+
+Sherry:
+Car
+Weight/Priority Queue
+Story/Event in regards to Priority Queue
+
+Joint:
+Game Driver
+Coming up with events.
+Everything else
+Figuring out how all the parts come together.
+We live next to each other so it would be easy to meet up for last minute issues.

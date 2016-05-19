@@ -1,0 +1,108 @@
+Boston
+Are you ready to go? Time is of the essence. But wait, before you leave, there’s this cute brunch place you’ve always wanted try. Should you try it before you leave Boston forever?
+Yes!
+No, theres no time for that.
+It wasn't as good as you thought it would be.
+Okay you move along.
+0,5,20,20,0,-12
+0,0,0,0,0,0,-5
+0
+0
+Boston.jpg
+#
+NewYork
+Welcome to the big apple! Unfortunately it’s now the big-Z. The government gave up trying to control the zombie population here and it’s now overrun. Will you take main street with the other living travelers or break from the group to take the back roads?
+Main streets
+Backroads
+Oh no! Zombies are attracted to the large group and attacks. Thankfully no one in your party was hurt and you only lost some supplies. 
+Thankfully the zombies were too focused on the large group to attack your small party, but you routinely got lost on the backgrounds and lost a lot time. 
+0,-12,-10,-5,0,-5
+0,0,0,0,0,-10
+0
+0
+NewYork.jpg
+#
+Columbus
+Welcome to Ohio! The cool wind brings hope to your party, but also the stench of rotting flesh. Want to stay and recharge or keep going?
+Stay
+Go
+What a great break! You picked up supplies and made some updates on your car. 
+Why, oh why, oh why, oh -- why did I ever leave Ohio?! 20 miles out your group is attacked by a pack of zombies and you were all too tired to properly defend yourselves. You lost some supplies. 
+15,5,10,15,0,-24
+0,-10,-10,0,0,-5
+0
+0
+Columbus.jpg
+#
+Chicago
+Welcome to Chicago! This is a great opportunity to stock up on supplies, but you only have time to visit one store. Should you visit the armor store or the gas station?
+Armor
+Gas
+You stocked up on armor.
+You stocked up on gas.
+0,10,0,0,0,-5
+15,0,0,0,0,-5
+0
+0
+Chicago.jpg
+#
+Lincoln
+Welcome to Nebraska! There’s not much here. Wait just kidding, is that a person in the distance? They look quite lonely. Do you want to say hi and welcome them to your crew?
+Yes! The more the merrier.
+No, momma always told me to stay away from strangers.
+ joins your group! Oh look they have candy!
+They were probably uncool anyways.
+0,0,0,10,1,-5
+0,0,0,0,0,-5
+1
+0
+Lincoln.jpg
+#
+Cheyenne
+Welcome to small town USA! Or other wise known Cheyenne, WY. The people here knew this apocalypse was a long time commin’ and are not too friendly about visitors. Do you attempt to contact the living here and risk meeting the bad end of a rifle or avoid them?
+Howdy neighbor!
+Keep steppin'
+You stroll up in the local salon and are promptly put at gunpoint. After a stammering plea for mercy and explanation they let you go in exchange for some gas. 
+You’re shady behavior draws attention from the watchful neighbors. They steal from you to teach you some manners. 
+-5,0,0,0,0,-10
+0,0,0,-10,0,-10
+0
+0
+Cheyenne.jpg
+#
+SaltLakeCity
+Wow look at that lake! Do you want to stop for a photograph?
+Sure!
+Too touristy
+ is pulled down into the lake and is never seen from again. The flash lures a group of lake zombies who rise up and grabs a leg! That’s too bad because he was also carrying a large amount of food. 
+Halfway around the lake you get in a fight with a member of your party who wanted a picture and have to go all the way back to get one. 
+0,0,0,-5,-1,-5
+0,0,0,0,0,-10
+1
+0
+SaltLakeCity.jpg
+#
+Boise
+Welcome to the land of Potatoes! A nice man offers you potatoes. Do you like them baked or boiled?
+Fried please!
+Those don't look like potatoes
+They tasted weird. Everyone throws up from food poisoning:(
+You were right. You realize that the nice man is actually a zombie and you promptly dispose of him
+0,0,0,-15,0,-20
+0,0,-5,0,0,-5
+0
+0
+Boise.jpg
+#
+Portland
+You're here! You made it! Oh wait...what's that in front of the lab?
+Take a closer look
+Go to the back entrance
+ tripped and was eaten by the zombies all around the entrance! They see you and you start running to the back entrance. 
+Smart thinking! The front entrance was compromised long ago so the back is the only way in safely.
+0,-5,0,0,-1,-5
+0,0,0,0,0,-10
+1
+0
+Portland.jpg
+#

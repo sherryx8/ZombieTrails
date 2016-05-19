@@ -1,0 +1,263 @@
+// Sherry Xu and Maxine Hood
+// CS 230 Final Project
+// Car.java
+// April 24, 2016
+
+public class Car{
+  // instance variables
+  private String name;
+  private int gas; // from 0 to 100
+  private int armor; //from 0 to 100
+  private int food; // from 0 to 100
+  private int ammo; //from 0 to 100
+  private String[] passengers = {"yourname", "Takis", "Christine", "Stella", "Sohie", "Lyn", "Eni", "Shravanna","Maxery","Sherrine"};
+  private int numPassengers;
+  private final int MAXPASSENGERS = 10;
+  private int time;
+  private double weight;
+  
+// constructor
+  public Car(String n, int g, int a, int m, int f){
+    name = n;
+    gas = g;
+    armor = a;
+    ammo = m;
+    food = f;
+    time = 720;
+    //passengers = {"yourname", "Takis", "Christine", "Stella", "Sohie", "Maxery"};
+    passengers[0] = name;
+    numPassengers = 1;  
+  }
+  
+  //getters
+  public String getName(){
+    return name;
+  }
+  
+  public int getGas(){
+    return gas;
+  }
+  
+  public int getArmor(){
+    return armor;
+  }
+  
+  public int getFood(){
+    return food;
+  }
+  
+  public String[] getPassengers(){
+    return passengers;
+  }
+  
+  public double getWeight(){
+    return weight;
+  }
+  
+  public int getNumPassengers() {
+    return numPassengers; 
+  }
+  
+  public int getAmmo() {
+    return ammo; 
+  }
+  
+  public int getTime() {
+    return time; 
+  }
+  
+  public int getSupplyPoints(){
+   return gas + food + ammo; 
+  }
+  
+  public String getPassengersString() {
+    String result = "";
+    for (int i = 0; i < numPassengers - 1; i++) {
+      result += passengers[i] + ", ";
+    }
+    result += passengers[numPassengers-1];
+    return result;
+  }
+  
+  //setters
+  public void setName(String n) {
+    name = n; 
+    passengers[0] = n;
+  }
+  
+  public void setGas(int g){
+    gas = g;
+  }
+  
+  public void setArmor(int a){
+    armor = a;
+  }
+  
+  public void setAmmo(int m){
+    ammo = m; 
+  }
+  
+  public void setFood(int f){
+    food = f;
+  }
+  
+  public void setNumPassengers(int n) {
+    numPassengers = n; 
+  }
+  
+  public void setAll(int g, int f, int a, int m) {
+    gas = g;
+    food = f;
+    armor = a;
+    ammo = m;
+  }
+  
+  public void addAll(int g, int f, int a, int m) {
+    gas += g;
+    food += f;
+    armor += a;
+    ammo += m;
+  }
+  
+  public int calculatePoints() {
+   return ((numPassengers *20) + (gas * 5) +(food* 5) + (ammo *5) + (armor * 5) + time); 
+  }
+  
+  // some double between 0 to 2, where 1 is an average weight
+  public void updateWeight(){
+    //average = 250 + 500 + 100 + 30 + 50 = 930
+    double n = gas*5 + armor*10 + ammo*2 +(numPassengers)*50 + food;
+    weight = n/600.0;
+  }
+  
+  // adds a passenger
+  public void addPassenger(){
+    if (numPassengers == MAXPASSENGERS)
+      System.out.println("Car is full!");
+    else{
+      numPassengers ++;
+    }
+  updateWeight();
+  }
+  
+  //takes passenger's name and removes that pasenger from passengers array
+  public void removePassenger(String name){
+    for (int i = 0; i < numPassengers; i++){
+      if (passengers[i].equals(name)){
+        numPassengers--;
+        if (numPassengers > 0){
+          passengers[i] = passengers[i+1];
+          //shift everything down
+          for (int j = i; j < numPassengers; j++){
+            passengers[j] = passengers[j+1];
+          }}
+        else {
+          passengers [i] = null;
+        }
+      return;
+      }}
+    System.out.println("Passenger not found");
+  }
+  
+  //moves passenger to end of array and decreases numPassengers
+  //this is so you dont get passenger with the same name again.
+  public void removePassenger(int index){
+    // if you are only passenger left.
+    if (index == 0){
+      numPassengers--;
+    }
+    else if (index < numPassengers){
+      numPassengers --;
+      //shift
+      String removed = passengers[index];
+      for (int i = index; i < passengers.length-1; i++){
+        passengers[i] = passengers[i+1];
+      }
+      // add to end.
+      passengers[passengers.length-1] = removed;
+    }
+    else
+      System.out.println("Passenger not found");    
+  }
+  
+  
+  //returns a String of a random passenger that is not the player(unless only player left)
+  public String getRandom(){
+    // if no passengers left besides self, return self
+    if (numPassengers == 1)
+      return passengers[0];
+    //else get random passenger that is not self.
+    else{
+      int num = (int)(Math.random()*(numPassengers-1)+1);
+      return passengers[num];
+    }}
+  
+  //removes a random passenger that is not the player(unless only player left)
+  public String removeRandom() {
+    // if no passengers left besides self, remove self
+    if (numPassengers == 1){
+      removePassenger(0);
+      return "You";
+    }
+    // else get random passenger that is not self.
+    else{
+      int num = (int)(Math.random()*(numPassengers-1)+1);
+      String s = passengers[num];
+      removePassenger(num);
+      return s;
+      // for(int i = 0; i < passengers.length
+    }
+  }
+  
+  public String executeEvent(ZTEvent event, boolean choice){
+    int[] effect;
+    String n = "";
+    if (choice)
+      effect = event.getEffectA();
+    else
+      effect = event.getEffectB();
+    gas += effect[0];
+    armor += effect[1];
+    ammo += effect[2];
+    food += effect[3];
+    if (effect[4] == -1)
+      n = removeRandom();
+    if (effect[4] == 1){
+      addPassenger();
+      n = passengers[numPassengers];
+    }
+    
+      food-=numPassengers;
+      gas-=5;
+      time += weight*effect[5]+10;
+      updateWeight();
+    return n;
+  }
+
+//toString
+public String toString(){
+  String s = "";
+  for (int i=0; i < numPassengers-1; i++){
+    s += passengers[i] + ", ";
+  }
+  s += passengers[numPassengers-1];
+  return name + 
+    "\n gas: " + gas + " armor: " + armor + " ammo: " + ammo + 
+    " food: " + food + "\n passengers: " + s + "\n time remaining: " + time;
+}
+
+public static void main(String[] args){
+    Car c = new Car("Xu", 64, 6, 39, 10);
+    c.addPassenger();
+    c.addPassenger();
+    c.addPassenger();
+    System.out.println(c);
+    c.removeRandom();
+    System.out.println(c);
+    c.addPassenger();
+    System.out.println(c);
+    for (int i = 0; i < c.passengers.length; i ++){
+      System.out.print(c.getPassengers()[i]);
+    }
+   
+}}
