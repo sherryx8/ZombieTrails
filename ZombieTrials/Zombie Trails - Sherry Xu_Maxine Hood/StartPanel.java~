@@ -1,0 +1,261 @@
+//Maxine Hood and Sherry Xu
+//Zombie Trails Gui
+// StartPanel.java
+
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.event.*;
+import java.util.Scanner; //CHECK TO MAKE SURE YOU'RE USING ALL OF THESE
+import java.io.*;
+import java.text.*;
+
+public class StartPanel extends JPanel {
+  
+  private ZTGame game;
+  private Car car;
+  private ZTEvent event;
+  private ZTCardLayout cardLayout;
+  private int supplies;
+  private double weight;
+  private final String[] NAMES ={"Start Game", "Play Game", "Lose Game", "Win Game"};
+  
+  private JLabel intro1, intro2, intro3, intro4, intro5, weightL, suppliesL, nameL, armorL, peopleL, gasL, foodL, ammoL;
+  private JButton submit;
+  private JTextField nameText;
+  private JSlider armorSlider, peopleSlider, gasSlider, foodSlider, ammoSlider;
+  private JPanel introPanel, enterInfoPanel, namePanel, infoS, sliders1, sliders2, sliders3;
+  
+  private final int MAX_WIDTH = 700;
+  private final int MAX_HEIGHT = 600;
+  
+  public StartPanel(ZTGame game, ZTCardLayout cardLayout) {
+    this.game = game;
+    this.cardLayout = cardLayout;
+    car = game.getCar();  //DOES THIS MAKE A NEW CAR OR DOES IT JUST CREATE A POINTER????????????????????????????
+    event = game.getEvent();
+    supplies = 0;
+    weight = 0;
+    
+    setPreferredSize(new Dimension(MAX_WIDTH, MAX_HEIGHT));
+    setLayout (new BoxLayout (this, BoxLayout.Y_AXIS)); //sets layout to box, things added vertically
+    setBackground(new Color(167,152,139));
+    
+    add(makeIntroPanel());
+    add(makeInfoPanel());
+  }
+  
+  //panel that displays instructions
+  private JPanel makeIntroPanel() {
+    introPanel = new JPanel(); //new panel
+    introPanel.setLayout (new BoxLayout (introPanel, BoxLayout.Y_AXIS));
+    introPanel.setBackground(new Color(80,35,45)); //color and size
+    introPanel.setPreferredSize(new Dimension(MAX_WIDTH, 100));
+    
+    intro1 = new JLabel("WELCOME TO ZOMBIE TRAILS");
+    intro2 = new JLabel("THERE’S BEEN A ZOMBIE APOCALYPSE AND YOU’VE BEEN BITTEN.");
+    intro3 = new JLabel("YOU HAVE 30 DAYS TO GET TO OREGON WHERE THE CURE IS LOCATED BEFORE YOU TURN.");
+    intro4 = new JLabel("YOU ARE TRAVELING BY CAR AND CAN ONLY TAKE A CERTAIN AMOUNT OF SUPPLIES AND PEOPLE ON THE 2,000 MILE TRIP.");
+    intro5 = new JLabel("CHOOSE WISELY AND GOOD LUCK.");
+    intro1.setAlignmentX(Component.CENTER_ALIGNMENT);
+    intro1.setFont(new Font("Serif", Font.BOLD, 22)); //sets font and size
+    intro1.setForeground(Color.WHITE);
+    intro2.setAlignmentX(Component.CENTER_ALIGNMENT);
+    intro2.setForeground(Color.WHITE);
+    intro3.setAlignmentX(Component.CENTER_ALIGNMENT);
+    intro3.setForeground(Color.WHITE);
+    intro4.setAlignmentX(Component.CENTER_ALIGNMENT);
+    intro4.setForeground(Color.WHITE);
+    intro5.setAlignmentX(Component.CENTER_ALIGNMENT);
+    intro5.setForeground(Color.WHITE);
+    
+    introPanel.add(intro1); 
+    introPanel.add(intro2);
+    introPanel.add(intro3);
+    introPanel.add(intro4);
+    introPanel.add(intro5);
+    introPanel.setVisible(true);
+    return introPanel; //returns panel
+  }
+  
+  //user inputs choices. Clicks button to start game
+  private JPanel makeInfoPanel() {
+    enterInfoPanel = new JPanel();
+    enterInfoPanel.setLayout (new BoxLayout (enterInfoPanel, BoxLayout.Y_AXIS));
+    enterInfoPanel.setBackground(new Color(167,152,139)); //color and size
+    enterInfoPanel.setPreferredSize(new Dimension(MAX_WIDTH, 500));
+    
+    nameL = new JLabel("Enter name");
+    nameL.setAlignmentX(Component.LEFT_ALIGNMENT);
+    nameText = new JTextField(10);
+    nameText.setAlignmentX(Component.RIGHT_ALIGNMENT);
+    
+    suppliesL = new JLabel("Supply points left: 100");
+    weightL = new JLabel("Weight of car: " + weight);
+    
+    peopleL = new JLabel ("Passengers: 1");
+    peopleL.setAlignmentX(Component.LEFT_ALIGNMENT);
+    armorL = new JLabel ("Armor: 0");
+    armorL.setAlignmentX(Component.LEFT_ALIGNMENT);
+    gasL = new JLabel ("Gas: 0");
+    gasL.setAlignmentX(Component.LEFT_ALIGNMENT);
+    foodL = new JLabel ("Food: 0");
+    foodL.setAlignmentX(Component.LEFT_ALIGNMENT);
+    ammoL = new JLabel ("Ammo: 0");
+    ammoL.setAlignmentX(Component.LEFT_ALIGNMENT);
+    
+    peopleSlider = new JSlider(JSlider.HORIZONTAL, 1, 6, 1);
+    peopleSlider.setMajorTickSpacing(1);
+    peopleSlider.setPaintTicks(true);
+    peopleSlider.setPaintLabels(true);
+    peopleSlider.setAlignmentX(Component.LEFT_ALIGNMENT);
+    peopleSlider.setBackground(new Color(167,152,139));
+    
+    armorSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 10); //CHANGE THESE BACK TO ZERO *************************************************
+    armorSlider.setMajorTickSpacing(10);
+    armorSlider.setMinorTickSpacing(5);
+    armorSlider.setPaintTicks(true);
+    armorSlider.setPaintLabels(true);
+    armorSlider.setAlignmentX(Component.LEFT_ALIGNMENT);
+    armorSlider.setBackground(new Color(167,152,139));
+    
+    gasSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 10);
+    gasSlider.setMajorTickSpacing(10);
+    gasSlider.setMinorTickSpacing(5);
+    gasSlider.setPaintTicks(true);
+    gasSlider.setPaintLabels(true);
+    gasSlider.setAlignmentX(Component.LEFT_ALIGNMENT);
+    gasSlider.setBackground(new Color(167,152,139));
+    
+    foodSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 10);
+    foodSlider.setMajorTickSpacing(10);
+    foodSlider.setMinorTickSpacing(5);
+    foodSlider.setPaintTicks(true);
+    foodSlider.setPaintLabels(true);
+    foodSlider.setAlignmentX(Component.LEFT_ALIGNMENT);
+    foodSlider.setBackground(new Color(167,152,139));
+    
+    ammoSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 10);
+    ammoSlider.setMajorTickSpacing(10);
+    ammoSlider.setMinorTickSpacing(5);
+    ammoSlider.setPaintTicks(true);
+    ammoSlider.setPaintLabels(true);
+    ammoSlider.setAlignmentX(Component.LEFT_ALIGNMENT);
+    ammoSlider.setBackground(new Color(167,152,139));
+    
+    SliderListener listener = new SliderListener();
+    peopleSlider.addChangeListener(listener);
+    armorSlider.addChangeListener(listener);
+    gasSlider.addChangeListener(listener);
+    foodSlider.addChangeListener(listener);
+    ammoSlider.addChangeListener(listener);
+    
+    submit = new JButton("Start");
+    submit.addActionListener(new ButtonListener());
+    submit.setAlignmentX(Component.LEFT_ALIGNMENT);
+    
+    namePanel = new JPanel(); //new panel w/ dimension and color
+    namePanel.setPreferredSize(new Dimension(MAX_WIDTH,40));
+    namePanel.setBackground(new Color(167,152,139));
+    
+    infoS = new JPanel(); //new panel w/ dimension and color
+    infoS.setPreferredSize(new Dimension(MAX_WIDTH,40));
+    infoS.setBackground(new Color(167,152,139));
+    
+    sliders1 = new JPanel(); //new panel w/ dimension and color
+    sliders1.setPreferredSize(new Dimension(MAX_WIDTH,90));
+    sliders1.setBackground(new Color(167,152,139));
+    
+    sliders2 = new JPanel(); //new panel w/ dimension and color
+    sliders2.setPreferredSize(new Dimension(MAX_WIDTH,90));
+    sliders2.setBackground(new Color(167,152,139));
+    
+    sliders3 = new JPanel(); //new panel w/ dimension and color
+    sliders3.setPreferredSize(new Dimension(MAX_WIDTH,90));
+    sliders3.setBackground(new Color(167,152,139));
+    
+    namePanel.add(nameL);
+    namePanel.add(nameText);
+    //namePanel.add(Box.createRigidArea(new Dimension(40, 10)));
+    infoS.add(suppliesL);
+    infoS.add(Box.createRigidArea(new Dimension(170, 0)));
+    infoS.add(weightL);
+    sliders1.add(foodL);
+    sliders1.add(foodSlider);
+    sliders1.add(Box.createRigidArea(new Dimension(40, 0)));
+    sliders1.add(peopleL);
+    sliders1.add(peopleSlider);
+    sliders2.add(gasL);
+    sliders2.add(gasSlider);
+    sliders2.add(Box.createRigidArea(new Dimension(40, 0)));
+    sliders2.add(armorL);
+    sliders2.add(armorSlider);
+    sliders3.add(ammoL);
+    sliders3.add(ammoSlider);
+    sliders3.add(Box.createRigidArea(new Dimension(310, 0)));
+    
+    enterInfoPanel.add(Box.createRigidArea(new Dimension(0, 20)));
+    enterInfoPanel.add(namePanel);
+    enterInfoPanel.add(infoS);
+    enterInfoPanel.add(sliders1);
+    enterInfoPanel.add(sliders2);
+    enterInfoPanel.add(sliders3);
+    enterInfoPanel.add(submit);
+    enterInfoPanel.add(Box.createRigidArea(new Dimension(0, 40)));
+    return enterInfoPanel;
+  }
+  
+  //when a slider is changed this class/method is called
+  private class SliderListener implements ChangeListener {
+    
+    //private instance vars
+    private int people, gas, ammo, food, armor;  //DO THESE GO HERE OR IN METHOD??????????????????
+    
+    public void stateChanged (ChangeEvent event) {
+      people = peopleSlider.getValue(); //gets values of sliders
+      gas = gasSlider.getValue();
+      ammo = ammoSlider.getValue();
+      food = foodSlider.getValue();
+      armor = armorSlider.getValue();
+      supplies = (gas + ammo + food);
+      
+      if (supplies <= 100) {
+        peopleL.setText("Passengers: " + people);
+        gasL.setText("Gas: " + gas);
+        ammoL.setText("Ammo: " + ammo);
+        foodL.setText("Food: " + food);
+        armorL.setText("Armor: " + armor);
+        suppliesL.setText("Supply points left: " + (100 - supplies));
+        //String name = nameText.getText();
+        //car.setName(name);
+        
+        car.setNumPassengers(people);
+        car.setAll(gas, food, armor, ammo);
+        car.updateWeight();
+        weight = car.getWeight();
+        DecimalFormat df = new DecimalFormat("#.##");
+        weightL.setText("Weight of car: " + df.format(weight));
+        
+      } else {
+        suppliesL.setText("Over max supplies"); 
+      }
+    }
+  }
+  
+  private class ButtonListener implements ActionListener {
+    
+    public void actionPerformed (ActionEvent event) { 
+      
+      if (supplies > 0) {
+        String name = nameText.getText();
+        car.setName(name);
+        
+        //cardLayout.itemStateChanged("Play Game");
+        cardLayout.setUpGame();
+      }
+    }
+    
+  }
+  
+  
+}

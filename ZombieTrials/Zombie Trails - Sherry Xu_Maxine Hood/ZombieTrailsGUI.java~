@@ -1,0 +1,30 @@
+//Maxine Hood and Sherry Xu
+//Zombie Trails Gui
+// ZombieTrailsGUI.java
+
+import javax.swing.*;
+
+public class ZombieTrailsGUI {
+  
+  public static void main (String[] args) {
+    JFrame frame = new JFrame("Zombie Trails"); //new frame
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //sets close
+    
+    ZTGame game = new ZTGame(); //creates game here so other classes
+    
+    ZTCardLayout panel = new ZTCardLayout(game);
+    frame.getContentPane().add(panel);
+    
+//    ResultPanel panel = new ResultPanel(game);
+//    frame.getContentPane().add(panel);
+    
+//    ZTPanel panel = new ZTPanel(game);
+//    frame.getContentPane().add(panel);
+//    
+//    ZTPanelMETHODVERSION panel = new ZTPanelMETHODVERSION(game);
+//    frame.getContentPane().add(panel);
+    
+    frame.pack();
+    frame.setVisible(true);
+  }
+}
